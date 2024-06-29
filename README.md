@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 3. **Active virtual environment (env)**
 ```sh
@@ -31,3 +32,7 @@ python manage.py createsuperuser
 ```
 
 
+=======
+# django-ai-estate
+Use of AI to determine the price of real estate based of big query data. 
+>>>>>>> origin/main
