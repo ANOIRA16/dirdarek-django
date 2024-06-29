@@ -1,0 +1,68 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info for LANGUAGE_CODE as lang %}
+{% get_language_info_list for LANGUAGES as languages %}
+
+<!-- Top Bar -->
+<section id="top-bar" class="p-3">
+  <div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <i class="fas fa-phone"></i> +212 (710-615460)
+        </div>
+        <div class="col-md-4">
+            <i class="fas fa-envelope-open"></i> oumaimatrt1999@gmail.com
+        </div>
+        <div class="col-md-1">
+          <div class="social text-right">
+              <a href="https://github.com/OUMAIMA16T" style="text-decoration: none;">
+                  <i class="fab fa-github"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/oumaimatourtit/" style="text-decoration: none;">
+                  <i class="fab fa-linkedin"></i>
+              </a>
+          </div>
+      </div>
+      
+
+
+      <div class="col-md-3">
+        <div class="text-right">
+          {% for language in languages %}
+              <a href="#{{ language.code }}" onclick="set_language('{{ language.code }}')" 
+                {% if classes.a_class != '' %} class="{{ classes.a_class }}" {% endif %} 
+                title="{{ language.name_local }}" style="text-decoration: none;">
+                  {% if language.code == 'ar' %}
+                      <img src="{% static 'img/Morocco.png' %}" alt="Moroccan Flag" class="{{ icon_class }}" style="width: 24px; height: 16px;">
+                  {% elif language.code == 'en' %}
+                      <img src="{% static 'img/US.png' %}" alt="American Flag" class="{{ icon_class }}" style="width: 24px; height: 16px;">
+                  {% elif language.code == 'fr' %}
+                      <img src="{% static 'img/France.png' %}" alt="French Flag" class="{{ icon_class }}" style="width: 24px; height: 16px;">
+                  {% endif %}
+              </a>
+          {% endfor %}
+    
+        <form action="{% url 'set_language' %}" method="post" id="setlang">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}">
+            <input type="hidden" name="language" id="language">
+        </form>
+    
+        <script type="text/javascript">
+            if (window.location.hash) {
+                var hash = window.location.hash;
+                document.getElementById('language').value = hash.replace('#', '');
+                document.getElementById('setlang').submit();
+            }
+            function set_language(language) {
+                document.getElementById('language').value = language;
+                document.getElementById('setlang').submit();
+            }
+        </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
