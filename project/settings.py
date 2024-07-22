@@ -18,6 +18,8 @@ SECRET_KEY = 'SECRET_KEY_PLACEHOLDER'
 DEBUG = True
 DEFAULT_LOGGING_LEVEL = "DEBUG" if DEBUG else "INFO"
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -308,6 +310,9 @@ MESSAGE_TAGS = {
 SITE_ID = 1
 
 try:
-    from .production_settings import *
+    try:
+        from .production_settings import * # type: ignore
+    except ImportError:
+        pass
 except ImportError:
     pass
